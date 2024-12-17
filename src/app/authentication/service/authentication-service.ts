@@ -20,9 +20,15 @@ export class AuthenticationService {
     );
   }
 
-  logout() {
-    localStorage.removeItem('token');
+  logout(): void {
+    const token = localStorage.getItem('token');
+    this.http.post(`${this.apiUrl}/logout`, { token }).pipe(
+      tap(() => {
+        localStorage.removeItem('token');
+      })
+    );
   }
+
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
