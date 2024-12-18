@@ -15,7 +15,6 @@ export class LogoutComponent implements OnInit{
   ) {}
 
   logout(): void {
-    console.log('Staring logout session: {}');
     this.authService.logout().subscribe({
       next: () => {
         console.log('Logout successful');

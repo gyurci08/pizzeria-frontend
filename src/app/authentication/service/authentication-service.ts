@@ -22,11 +22,7 @@ export class AuthenticationService {
 
   logout(): Observable<any> {
     const token = this.getToken(); // Retrieves the JWT token from local storage
-    return this.http.post(`${this.apiUrl}/logout`, { token }, {
-      headers: {
-        'Authorization': `Bearer ${token}`, // Include the Bearer token in the Authorization header
-      }
-    }).pipe(
+    return this.http.post(`${this.apiUrl}/logout`, { token }).pipe(
       tap(() => {
         localStorage.removeItem('token'); // Remove the token from local storage after logout
       })
@@ -40,6 +36,6 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!this.getToken(); // Converts the token to a boolean
   }
 }
