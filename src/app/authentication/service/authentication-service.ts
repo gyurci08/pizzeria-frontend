@@ -8,21 +8,21 @@ import {AuthResponse} from '../entity/auth-response';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/authenticate`, { username, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap((response) => {
         localStorage.setItem('token', response.token);
       })
     );
   }
 
-  logout(): void {
-    const token = localStorage.getItem('token');
-    this.http.post(`${this.apiUrl}/logout`, { token }).pipe(
+  logout(): Observable<any> {
+    const token = this.getToken();
+    return this.http.post(`${this.apiUrl}/logout`, { token }).pipe(
       tap(() => {
         localStorage.removeItem('token');
       })
@@ -30,7 +30,12 @@ export class AuthenticationService {
   }
 
 
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 }

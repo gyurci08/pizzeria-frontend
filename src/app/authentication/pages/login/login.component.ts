@@ -9,6 +9,7 @@ import {CommonModule} from '@angular/common';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,11 @@ export class LoginComponent{
   loginError: string | null = null;
   hidePassword = true;
 
-  constructor(private fb: FormBuilder, private authService: AuthenticationService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticationService,
+    private router: Router,
+  ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -47,8 +52,8 @@ export class LoginComponent{
       const { username, password } = this.loginForm.value;
       this.authService.login(username, password).pipe(
         tap(() => {
-          // Handle successful login, e.g., redirect to dashboard
           console.log('Login successful');
+          this.router.navigate(['/dashboard']);
         }),
         catchError((error) => {
           this.loginError = 'Invalid username or password';
