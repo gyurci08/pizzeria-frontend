@@ -11,8 +11,8 @@ export class NoAuthGuardService implements CanActivate {
   canActivate(): boolean {
     if (this.authenticationService.isLoggedIn()) {
       this.router.navigate(['']); // Redirect to home if already logged in
-      return false; // Prevent access to the login route
+      return false; // Prevent access to the login routing
     }
-    return true; // Allow access to the login route
+    return true; // Allow access to the login routing
   }
 }

@@ -10,5 +10,11 @@ export const routes: Routes = [
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import('./order/routing/order-routing/order-routing.module').then(m => m.OrderRoutingModule)
+  },
+  // Should be the last
   { path: '**', redirectTo: '/dashboard' }
 ];

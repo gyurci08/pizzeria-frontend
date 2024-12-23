@@ -1,1 +1,11 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+
+  <span>MyPizzeria</span>
+  <span class="spacer"></span>
+  <button mat-button>Dashboard</button>
+  <button mat-button [matMenuTriggerFor]="orderMenu">Order</button>
+  <mat-menu #orderMenu="matMenu">
+    <button routerLink="orders" mat-menu-item>Get orders</button>
+    <button mat-menu-item>New order</button>
+  </mat-menu>
+</mat-toolbar>
