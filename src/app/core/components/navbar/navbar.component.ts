@@ -3,7 +3,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +14,8 @@ import {RouterLink} from '@angular/router';
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
-    RouterLink
+    RouterLink,
+    RouterModule
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
