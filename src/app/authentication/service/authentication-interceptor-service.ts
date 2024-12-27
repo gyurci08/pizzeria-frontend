@@ -1,18 +1,33 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthenticationService } from './authentication-service';
+import { catchError, switchMap, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  //console.log('AuthenticationInterceptor called');
   const authService = inject(AuthenticationService);
-  const token = authService.getToken();
+  const accessToken = authService.getAccessToken();
 
-  if (token) {
-    //console.log('Adding token to request:', token);
+  // Add token to request if available
+  if (accessToken) {
     req = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` }
+      setHeaders: { Authorization: `Bearer ${accessToken}` }
     });
   }
 
-  return next(req);
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401 && !req.url.includes('/auth/refresh')) {
+        return authService.handleExpiredAccessToken().pipe(
+          switchMap(() => {
+            const newAccessToken = authService.getAccessToken();
+            const newReq = req.clone({
+              setHeaders: { Authorization: `Bearer ${newAccessToken}` }
+            });
+            return next(newReq);
+          })
+        );
+      }
+      return throwError(() => error);
+    })
+  );
 };
