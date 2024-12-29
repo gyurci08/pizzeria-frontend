@@ -1,11 +1,22 @@
 <mat-toolbar color="primary">
-
   <span>MyPizzeria</span>
   <span class="spacer"></span>
   <button mat-button routerLink="/dashboard">Dashboard</button>
+
   <button mat-button [matMenuTriggerFor]="orderMenu">Order</button>
   <mat-menu #orderMenu="matMenu">
     <button mat-menu-item routerLink="/orders">Get orders</button>
     <button mat-menu-item>New order</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="loggedOutMenu">Account</button>
+  <mat-menu #loggedOutMenu="matMenu">
+    <ng-container *ngIf="!isLoggedIn; else loggedInMenu">
+      <button mat-menu-item routerLink="/login">Login</button>
+      <button mat-menu-item routerLink="/register">Register</button>
+    </ng-container>
+    <ng-template #loggedInMenu>
+      <button mat-menu-item routerLink="/logout">Logout</button>
+    </ng-template>
   </mat-menu>
 </mat-toolbar>
