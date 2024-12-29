@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <mat-error *ngIf="loginError">{{ loginError }}</mat-error>
+      <mat-error *ngIf="loginError" class="error-message">{{ loginError }}</mat-error>
 
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
@@ -24,7 +24,10 @@
         <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long</mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+        <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+        <span *ngIf="!isLoading">Login</span>
+      </button>
     </form>
   </mat-card-content>
 </mat-card>

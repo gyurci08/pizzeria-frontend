@@ -20,3 +20,21 @@ button[type="submit"] {
 mat-error {
   margin-bottom: 16px;
 }
+
+.spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.error-message {
+  margin-bottom: 16px;
+  padding: 8px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+}
