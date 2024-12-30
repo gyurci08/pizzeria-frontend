@@ -1,28 +1,47 @@
-import {Component, OnInit} from '@angular/core';
-import {AsyncPipe, CommonModule, NgFor} from '@angular/common';
-import {Observable} from 'rxjs';
-import {Order} from '../../entity/order';
-import {OrderService} from '../../service/order-service';
+import { Component } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Observable, catchError, map, startWith, of } from 'rxjs';
+import { Order } from '../../entity/order';
+import { OrderService } from '../../service/order-service';
+import { SearchableListComponent } from '../../../core/generics/searchable-list/searchable-list.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+interface OrderState {
+  orders: Order[] | null;
+  isLoading: boolean;
+  error: string | null;
+}
 
 @Component({
   selector: 'app-order-list',
+  standalone: true,
   imports: [
-    CommonModule,
-    NgFor,
-    AsyncPipe
+    AsyncPipe,
+    NgIf,
+    SearchableListComponent,
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './order-list.component.html',
-  styleUrl: './order-list.component.scss'
+  styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
-  orders$: Observable<Order[]>;
+export class OrderListComponent {
+  orderState$: Observable<OrderState>;
 
   constructor(private orderService: OrderService) {
-    this.orders$=orderService.getOrders();
+    this.orderState$ = this.loadOrders();
   }
 
-  ngOnInit() {
-
+  loadOrders(): Observable<OrderState> {
+    return this.orderService.getOrders().pipe(
+      map(orders => ({ orders, isLoading: false, error: null })),
+      startWith({ orders: null, isLoading: true, error: null }),
+      catchError(error => of({ orders: null, isLoading: false, error: 'Failed to load orders. Please try again.' }))
+    );
   }
 
+  onOrderClick(order: Order) {
+    console.log('Order clicked:', order);
+  }
 }

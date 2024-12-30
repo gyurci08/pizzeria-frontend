@@ -40,7 +40,6 @@ export class LoginComponent{
   hidePassword = true;
   isLoading = false;
 
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -52,31 +51,35 @@ export class LoginComponent{
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.isLoading = true;
-      this.loginError = null; // Reset error message
+      this.loginError = null;
+
       this.authService.login(username, password).pipe(
-        tap(() => {
-          console.log('Login successful');
-          this.router.navigate(['/dashboard']);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          console.error('Login error:', error);
-          if (error.status === 0) {
-            this.loginError = 'Unable to connect to the server. Please check your internet connection.';
-          } else if (error.status === 403) {
-            this.loginError = 'Invalid username or password.';
-          } else {
-            this.loginError = 'An unexpected error occurred. Please try again later.';
-          }
-          return throwError(() => error);
-        }),
-        finalize(() => {
-          this.isLoading = false;
-        })
-      ).subscribe();
+        catchError(this.handleError.bind(this)),
+        finalize(() => this.isLoading = false)
+      ).subscribe(() => this.router.navigate(['/dashboard']));
+    }
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('Login error:', error);
+    this.loginError = this.getErrorMessage(error);
+    return throwError(() => error);
+  }
+
+  private getErrorMessage(error: HttpErrorResponse): string {
+    switch (error.status) {
+      case 0:
+        return 'Unable to connect to the server. Please check your internet connection.';
+      case 401:
+        return 'Invalid username or password.';
+      case 403:
+        return 'User does not exist.';
+      default:
+        return 'An unexpected error occurred. Please try again later.';
     }
   }
 

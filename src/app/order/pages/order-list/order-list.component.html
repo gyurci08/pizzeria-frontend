@@ -1,4 +1,17 @@
-<h1>Orders</h1>
-<div *ngFor="let order of orders$ | async">
-  {{order.id}}
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Orders</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngIf="orderState$ | async as state">
+      <mat-spinner *ngIf="state.isLoading"></mat-spinner>
+      <p *ngIf="state.error">{{ state.error }}</p>
+      <app-searchable-list
+        *ngIf="!state.isLoading && !state.error && state.orders"
+        [data]="state.orders"
+        [displayedColumns]="['customerName', 'status','orderDate','totalAmount']"
+        (rowClick)="onOrderClick($event)">
+      </app-searchable-list>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
