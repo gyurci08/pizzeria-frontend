@@ -6,7 +6,7 @@
   <button mat-button [matMenuTriggerFor]="orderMenu">Order</button>
   <mat-menu #orderMenu="matMenu">
     <button mat-menu-item routerLink="/orders">Get orders</button>
-    <button mat-menu-item>New order</button>
+    <button mat-menu-item routerLink="/orders/new">New order</button>
   </mat-menu>
 
   <button mat-button [matMenuTriggerFor]="loggedOutMenu">Account</button>

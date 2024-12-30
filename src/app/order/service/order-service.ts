@@ -12,7 +12,14 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
-  getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.apiUrl}`);
+  getOrdersWithNames(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.apiUrl}/with-customer-names`);
   }
+
+
+  createOrder(dto: Omit<Order, 'id' | 'customerName'>): Observable<Order> {
+    return this.http.post<Order>(`${this.apiUrl}`, dto);
+  }
+
+
 }

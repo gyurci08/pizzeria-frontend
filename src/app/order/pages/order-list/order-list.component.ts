@@ -34,7 +34,7 @@ export class OrderListComponent {
   }
 
   loadOrders(): Observable<OrderState> {
-    return this.orderService.getOrders().pipe(
+    return this.orderService.getOrdersWithNames().pipe(
       map(orders => ({ orders, isLoading: false, error: null })),
       startWith({ orders: null, isLoading: true, error: null }),
       catchError(error => of({ orders: null, isLoading: false, error: 'Failed to load orders. Please try again.' }))
