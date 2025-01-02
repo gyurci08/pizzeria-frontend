@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable, of, tap, throwError} from 'rxjs';
-import {AuthResponse} from '../entity/auth-response';
+import {AuthResponse} from '../dto/auth-response';
 import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
 
@@ -12,11 +12,14 @@ import {catchError} from 'rxjs/operators';
 export class AuthenticationService {
   private apiUrl = `${environment.apiUrl}/auth`;
 
+
   constructor(private http: HttpClient,
-              private router: Router,) {}
+              private router: Router,) {
+  }
+
 
   login(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, {username, password}).pipe(
       tap((response) => {
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
@@ -28,7 +31,7 @@ export class AuthenticationService {
     const accessToken = this.getAccessToken();
     const refreshToken = this.getRefreshToken();
 
-    return this.http.post(`${this.apiUrl}/logout`, { accessToken, refreshToken }).pipe(
+    return this.http.post(`${this.apiUrl}/logout`, {accessToken, refreshToken}).pipe(
       tap(() => {
         console.log('Logout successful');
         this.removeTokens();
@@ -51,10 +54,10 @@ export class AuthenticationService {
   }
 
 
-
   getAccessToken(): string | null {
     return localStorage.getItem('accessToken');
   }
+
   getRefreshToken(): string | null {
     return localStorage.getItem('refreshToken');
   }
@@ -76,7 +79,7 @@ export class AuthenticationService {
   refreshAccessToken(): Observable<AuthResponse> {
     const refreshToken = this.getRefreshToken();
 
-    return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, { refreshToken }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, {refreshToken}).pipe(
       tap((response) => {
         localStorage.setItem('accessToken', response.accessToken);
       })

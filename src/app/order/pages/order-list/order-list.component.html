@@ -9,7 +9,7 @@
       <app-searchable-list
         *ngIf="!state.isLoading && !state.error && state.orders"
         [data]="state.orders"
-        [displayedColumns]="['customerName', 'status','orderDate','totalAmount']"
+        [displayedColumns]="['status','totalAmount','orderDate']"
         (rowClick)="onOrderClick($event)">
       </app-searchable-list>
     </ng-container>

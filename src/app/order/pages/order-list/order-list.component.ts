@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Observable, catchError, map, startWith, of } from 'rxjs';
-import { Order } from '../../entity/order';
-import { OrderService } from '../../service/order-service';
-import { SearchableListComponent } from '../../../core/generics/searchable-list/searchable-list.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {Component} from '@angular/core';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {catchError, map, Observable, of, startWith} from 'rxjs';
+import {Order} from '../../entity/order';
+import {OrderService} from '../../service/order-service';
+import {SearchableListComponent} from '../../../core/generics/searchable-list/searchable-list.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 interface OrderState {
   orders: Order[] | null;
@@ -34,10 +34,10 @@ export class OrderListComponent {
   }
 
   loadOrders(): Observable<OrderState> {
-    return this.orderService.getOrdersWithNames().pipe(
-      map(orders => ({ orders, isLoading: false, error: null })),
-      startWith({ orders: null, isLoading: true, error: null }),
-      catchError(error => of({ orders: null, isLoading: false, error: 'Failed to load orders. Please try again.' }))
+    return this.orderService.getOrders().pipe(
+      map(orders => ({orders, isLoading: false, error: null})),
+      startWith({orders: null, isLoading: true, error: null}),
+      catchError(error => of({orders: null, isLoading: false, error: 'Failed to load orders. Please try again.'}))
     );
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../service/authentication-service';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
@@ -6,8 +6,8 @@ import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
-import {catchError, finalize, tap} from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import {catchError, finalize} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
 import {Router} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
@@ -34,7 +34,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent{
+export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
   hidePassword = true;
@@ -46,14 +46,14 @@ export class LoginComponent{
     private router: Router,
   ) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(6)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
+      const {username, password} = this.loginForm.value;
       this.isLoading = true;
       this.loginError = null;
 
@@ -82,7 +82,6 @@ export class LoginComponent{
         return 'An unexpected error occurred. Please try again later.';
     }
   }
-
 
 
 }

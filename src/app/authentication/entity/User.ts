@@ -1,11 +1,12 @@
 import {AutoAssign} from '../../core/decorator/auto-assign.decorator';
+import {Role} from './Role';
+
 
 @AutoAssign()
-export class Customer {
-  id!: number;
+export class User {
   name!: string;
   email!: string;
-  phone!: string;
-  address!: string;
-  userId!: number;
+  password!: string;
+
+  roles!: Role[];
 }
