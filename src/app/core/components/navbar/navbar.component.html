@@ -1,22 +1,25 @@
 <mat-toolbar color="primary">
   <span>MyPizzeria</span>
   <span class="spacer"></span>
-  <button mat-button routerLink="/dashboard">Dashboard</button>
+  <button mat-button routerLink="">Home</button>
 
-  <button mat-button [matMenuTriggerFor]="orderMenu">Order</button>
-  <mat-menu #orderMenu="matMenu">
-    <button mat-menu-item routerLink="/orders">Get orders</button>
-    <button mat-menu-item routerLink="/orders/new">New order</button>
-  </mat-menu>
+  <ng-container *ngIf="isLoggedIn">
+    <button mat-button [matMenuTriggerFor]="orderMenu">Order</button>
+    <mat-menu #orderMenu="matMenu">
+      <button mat-menu-item routerLink="/orders">Get orders</button>
+      <button mat-menu-item routerLink="/orders/new">New order</button>
+    </mat-menu>
+  </ng-container>
 
   <button mat-button [matMenuTriggerFor]="loggedOutMenu">Account</button>
   <mat-menu #loggedOutMenu="matMenu">
     <ng-container *ngIf="!isLoggedIn; else loggedInMenu">
-      <button mat-menu-item routerLink="/login">Login</button>
-      <button mat-menu-item routerLink="/register">Register</button>
+      <button mat-menu-item routerLink="auth/login">Login</button>
+      <button mat-menu-item routerLink="auth/register">Register</button>
     </ng-container>
     <ng-template #loggedInMenu>
-      <button mat-menu-item routerLink="/logout">Logout</button>
+      <button mat-menu-item routerLink="/my-data">My Data</button>
+      <button mat-menu-item routerLink="auth/logout">Logout</button>
     </ng-template>
   </mat-menu>
 </mat-toolbar>

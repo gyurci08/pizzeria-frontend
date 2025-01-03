@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <ng-container *ngIf="orderState$ | async as state">
-      <mat-spinner *ngIf="state.isLoading"></mat-spinner>
+      <mat-progress-spinner *ngIf="state.isLoading" mode="indeterminate"></mat-progress-spinner>
       <p *ngIf="state.error">{{ state.error }}</p>
       <app-searchable-list
         *ngIf="!state.isLoading && !state.error && state.orders"

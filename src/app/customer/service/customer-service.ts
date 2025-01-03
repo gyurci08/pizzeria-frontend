@@ -18,7 +18,7 @@ export class CustomerService {
   // }
 
   getCustomer(): Observable<Customer> {
-    return this.http.get<Customer>(`${this.apiUrl}/customers`);
+    return this.http.get<Customer>(`${this.apiUrl}`);
   }
 
 
