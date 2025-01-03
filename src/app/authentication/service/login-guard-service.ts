@@ -5,8 +5,9 @@ import {AuthenticationService} from './authentication-service';
 @Injectable({
   providedIn: 'root'
 })
-export class NoAuthGuardService implements CanActivate {
-  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+export class LoginGuardService implements CanActivate {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  }
 
   canActivate(): boolean {
     if (this.authenticationService.isLoggedIn()) {

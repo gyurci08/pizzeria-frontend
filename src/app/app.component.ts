@@ -24,9 +24,11 @@ export class AppComponent {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.showNavbar = ![
-          '/auth/login',
-          '/auth/logout'
+          "/placeholder"
+          // '/auth/login',
+          // '/auth/logout'
         ].includes(event.url);
       });
   }
+
 }
