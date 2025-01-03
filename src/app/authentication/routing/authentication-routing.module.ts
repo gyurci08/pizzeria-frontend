@@ -2,10 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from '../pages/login/login.component';
 import {NoAuthGuardService} from '../service/no-auth-guard-service';
+import {RegisterComponent} from '../pages/register/register.component';
 import {LogoutComponent} from '../pages/logout/logout.component';
 import {AuthGuardService} from '../service/auth-guard-service';
-import {RegisterComponent} from '../pages/register/register.component';
-
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},

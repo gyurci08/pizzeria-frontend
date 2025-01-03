@@ -1,15 +1,14 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from './pages/home/home.component';
 import {AuthGuardService} from './authentication/service/auth-guard-service';
-import {NoAuthGuardService} from './authentication/service/no-auth-guard-service';
+import {NotFoundComponent} from './core/components/not-found/not-found.component';
 
 export const routes: Routes = [
   // {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '', component: HomeComponent, canActivate: [NoAuthGuardService]},
+  {path: '', component: HomeComponent},
   {
     path: 'auth',
-    loadChildren: () => import('./authentication/routing/authentication-routing.module').then(m => m.AuthenticationRoutingModule),
-    canActivate: [NoAuthGuardService]
+    loadChildren: () => import('./authentication/routing/authentication-routing.module').then(m => m.AuthenticationRoutingModule)
   },
   {
     path: 'orders',
@@ -17,10 +16,11 @@ export const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'my-data',
+    path: 'profile',
     loadChildren: () => import('./customer/routing/customer-routing.module').then(m => m.CustomerRoutingModule),
     canActivate: [AuthGuardService]
   },
-  // Should be the last
-  {path: '**', redirectTo: '/home'}
+
+  // Wildcard path for error-handle
+  {path: '**', component: NotFoundComponent}
 ];

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -24,10 +24,12 @@ import {NgIf} from '@angular/common';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
+  @Input() title: string = 'MyApp';
 
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) {
+  }
 
   // TODO: Pizza list and register for viewers
   ngOnInit() {

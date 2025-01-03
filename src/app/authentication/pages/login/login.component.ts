@@ -60,7 +60,7 @@ export class LoginComponent {
       this.authService.login(username, password).pipe(
         catchError(this.handleError.bind(this)),
         finalize(() => this.isLoading = false)
-      ).subscribe(() => this.router.navigate(['/dashboard']));
+      ).subscribe(() => this.router.navigate(['']));
     }
   }
 

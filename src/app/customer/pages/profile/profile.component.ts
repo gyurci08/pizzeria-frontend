@@ -16,7 +16,7 @@ interface CustomerState {
 
 
 @Component({
-  selector: 'app-my-data',
+  selector: 'app-profile',
   imports: [
     MatCard,
     MatCardTitle,
@@ -29,10 +29,10 @@ interface CustomerState {
     MatError,
     AsyncPipe
   ],
-  templateUrl: './my-data.component.html',
-  styleUrl: './my-data.component.scss'
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss'
 })
-export class MyDataComponent {
+export class ProfileComponent {
   customerState$: Observable<CustomerState>;
 
   constructor(private customerService: CustomerService) {

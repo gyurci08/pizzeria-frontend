@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
-  <span>MyPizzeria</span>
+  <span>{{ title }}</span>
   <span class="spacer"></span>
+
   <button mat-button routerLink="">Home</button>
 
   <ng-container *ngIf="isLoggedIn">
@@ -18,7 +19,7 @@
       <button mat-menu-item routerLink="auth/register">Register</button>
     </ng-container>
     <ng-template #loggedInMenu>
-      <button mat-menu-item routerLink="/my-data">My Data</button>
+      <button mat-menu-item routerLink="/profile">Profile</button>
       <button mat-menu-item routerLink="auth/logout">Logout</button>
     </ng-template>
   </mat-menu>

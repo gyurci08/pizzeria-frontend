@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {NavbarComponent} from './core/components/navbar/navbar.component';
 import {NgIf} from '@angular/common';
@@ -24,8 +24,8 @@ export class AppComponent {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.showNavbar = ![
-          '/login',
-          '/logout'
+          '/auth/login',
+          '/auth/logout'
         ].includes(event.url);
       });
   }
