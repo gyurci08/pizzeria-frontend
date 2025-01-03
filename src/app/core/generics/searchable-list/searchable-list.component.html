@@ -14,12 +14,16 @@
 
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-      No data matching the filter "{{input.value}}"
+      <ng-container *ngIf="input.value; else noDataMessage">
+        No data matching the filter "{{input.value}}"
+      </ng-container>
+      <ng-template #noDataMessage>
+        No data available
+      </ng-template>
     </td>
   </tr>
-</table>
 
-<mat-paginator [pageSize]="pageSize"
+  <mat-paginator [pageSize]="pageSize"
                [pageSizeOptions]="pageSizeOptions"
                showFirstLastButtons
                aria-label="Select page of results">
