@@ -1,1 +1,38 @@
-<p>dashboard works!</p>
+<div class="hero-section">
+  <h1>Welcome to Pizzeria Delizioso</h1>
+  <p>Authentic Italian pizzas made with love</p>
+  <button mat-raised-button color="accent">Order Now</button>
+</div>
+
+<mat-card class="featured-section">
+  <mat-card-header>
+    <mat-card-title>Featured Pizzas</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngIf="menuItemsState$ | async as state">
+      <mat-progress-spinner *ngIf="state.isLoading" mode="indeterminate"></mat-progress-spinner>
+      <p *ngIf="state.error">{{ state.error }}</p>
+      <mat-list *ngIf="!state.isLoading && !state.error && state.menuItems">
+        <mat-list-item *ngFor="let item of state.menuItems">
+          <i class="material-icons pizza-icon">local_pizza</i>
+          <div class="pizza-info">
+            <div class="pizza-name">{{ item.name }}</div>
+            <div class="pizza-description">{{ item.description }}</div>
+          </div>
+          <span class="pizza-price">{{ item.price }}</span>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card class="about-section">
+  <mat-card-header>
+    <mat-card-title>About Us</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Pizzeria Delizioso has been serving authentic Italian pizzas since 1985. Our secret family recipes and fresh
+      ingredients make our pizzas truly special.</p>
+  </mat-card-content>
+</mat-card>

@@ -9,7 +9,7 @@ export class AppInitializerService {
   }
 
   initializeApp() {
-    // Poor experience as resets the session on refresh
+    // Poor experience as resets the session on page refresh
     this.clearTokens();
   }
 

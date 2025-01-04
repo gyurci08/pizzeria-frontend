@@ -1,0 +1,165 @@
+@use 'sass:color';
+
+$primary-color: #2c3e50;
+$accent-color: #e67e22;
+$background-color: #ecf0f1;
+$text-color: #34495e;
+$highlight-color: #ffffff;
+$font-family: 'Roboto', sans-serif;
+$border-radius: 10px;
+$transition-speed: 0.3s;
+
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+}
+
+mat-toolbar {
+  background-color: $primary-color;
+  color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  button {
+    color: white;
+    transition: background-color $transition-speed, transform $transition-speed;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.hero-section {
+  text-align: center;
+  padding: 100px 20px;
+  background-color: color.scale($background-color, $lightness: -5%);
+  border-radius: $border-radius;
+  margin-bottom: 40px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: $primary-color;
+    text-shadow: rgba(255, 255, 255, 0.5) 1px 1px;
+    letter-spacing: -1px;
+    transition: transform $transition-speed;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  p {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: .9;
+    transition: opacity $transition-speed;
+
+    &:hover {
+      opacity: .95;
+    }
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: .75rem 2rem;
+    background-color: $accent-color;
+    color: white;
+
+    &:hover {
+      background-color: color.scale($accent-color, $lightness: +10%);
+      transform: scale(1.05);
+      transition-duration: .2s;
+    }
+
+    border-radius: $border-radius;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.featured-section {
+  margin-bottom: 40px;
+
+  mat-card-header {
+    background-color: $primary-color;
+    padding: 16px;
+
+    mat-card-title {
+      color: white;
+      font-size: 24px;
+      margin: 0;
+    }
+  }
+
+  mat-list-item {
+    height: auto !important;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    .pizza-icon {
+      color: $accent-color;
+      font-size: 24px;
+    }
+
+    .pizza-info {
+      flex: 1;
+
+      .pizza-name {
+        font-size: 18px;
+        font-weight: 500;
+        color: $text-color;
+      }
+
+      .pizza-description {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-top: 4px;
+      }
+    }
+
+    .pizza-price {
+      color: $accent-color;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+}
+
+.about-section {
+  margin-bottom: 40px;
+
+  mat-card-header {
+    background-color: $primary-color;
+    padding: 16px;
+
+    mat-card-title {
+      color: white;
+      font-size: 24px;
+      margin: 0;
+    }
+  }
+
+  mat-list-item {
+    height: auto !important;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
