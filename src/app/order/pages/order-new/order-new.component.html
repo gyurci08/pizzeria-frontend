@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-header>
+    <h2>Select Menu Items</h2>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="(menuItemsState$ | async) as state">
+    <div *ngIf="state.isLoading">Loading...</div>
+    <div *ngIf="state.error">{{ state.error }}</div>
+
+    <div *ngIf="!state.isLoading && state.menuItems">
+      <div *ngFor="let item of state.menuItems">
+        <mat-checkbox [checked]="selectedItems.includes(item)" (change)="toggleSelection(item)">
+          {{ item.name }} - {{ item.price }}
+        </mat-checkbox>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="submitOrder()">Submit Order</button>
+    </div>
+
+    <div *ngIf="!state.isLoading && (!state.menuItems || state.menuItems.length === 0)">
+      No menu items available.
+    </div>
+
+  </mat-card-content>
+</mat-card>

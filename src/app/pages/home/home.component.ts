@@ -7,8 +7,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/mat
 import {MatButton} from '@angular/material/button';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatList, MatListItem} from '@angular/material/list';
-import {MatIcon, MatIconModule} from '@angular/material/icon';
-import {MatLine} from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @Component({
@@ -25,9 +24,7 @@ import {MatLine} from '@angular/material/core';
     MatProgressSpinner,
     MatList,
     MatListItem,
-    MatIcon,
     MatIconModule,
-    MatLine
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
