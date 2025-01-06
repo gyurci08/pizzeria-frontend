@@ -1,5 +1,6 @@
+// TODO: Should not use it because of type safety
 export function AutoAssign() {
-  return function <T extends { new (...args: any[]): {} }>(constructor: T) {
+  return function <T extends { new(...args: any[]): {} }>(constructor: T) {
     return class extends constructor {
       constructor(...args: any[]) {
         super();

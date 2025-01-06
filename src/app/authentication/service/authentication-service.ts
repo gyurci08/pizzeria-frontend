@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, of, tap, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {BehaviorSubject, EMPTY, Observable, tap, throwError} from 'rxjs';
 import {AuthResponse} from '../dto/auth-response';
-import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
+import {RegisterResponse} from '../dto/register-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,10 @@ export class AuthenticationService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
 
-  constructor(private http: HttpClient,
-              private router: Router,) {
+  constructor(private http: HttpClient) {
   }
 
+  // TODO: Where should I route to home? At the caller? - Caller: Separation of Concerns
   login(username: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, {username, password}).pipe(
       tap((response) => {
@@ -34,27 +34,45 @@ export class AuthenticationService {
     );
   }
 
-  logout(): Observable<any> {
-    const accessToken = this.getAccessToken();
-    const refreshToken = this.getRefreshToken();
-
-    return this.http.post(`${this.apiUrl}/logout`, {accessToken, refreshToken}).pipe(
-      tap(() => {
-        console.log('Logout successful');
-        this.removeTokens();
-        this.currentUserSubject.next(false);
+  // TODO: Return Observable<RegisterResponse> or Observable<any>? - First: Type safety
+  register(email: string, username: string, password: string): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.apiUrl}/register`, {email, username, password}).pipe(
+      tap((response) => {
+        console.log('Register successful with id: ', response.id);
       }),
       catchError((error) => {
-        console.error('Logout error:', error);
-        if (error.status === 401) {
-          console.log('Received 401 during logout, removing tokens anyway');
-          this.removeTokens();
-          return of(null); // Return a new observable to continue the stream
-        }
+        console.error('Register error:', error);
         return throwError(() => error);
       })
     );
   }
+
+  logout(): Observable<void> {
+    const accessToken = this.getAccessToken();
+    const refreshToken = this.getRefreshToken();
+
+    return this.http.post<void>(`${this.apiUrl}/logout`, {accessToken, refreshToken}).pipe(
+      tap(() => {
+        this.handleSuccessfulLogout();
+      }),
+      catchError(this.handleLogoutError.bind(this))
+    );
+  }
+
+  handleSuccessfulLogout(): void {
+    this.removeTokens();
+    this.currentUserSubject.next(false);
+  }
+
+  handleLogoutError(error: HttpErrorResponse): Observable<never> {
+    console.error('Logout error:', error);
+    if (error.status === 401) {
+      this.handleSuccessfulLogout();
+      return EMPTY;
+    }
+    return throwError(() => new Error('Logout failed'));
+  }
+
 
   removeTokens(): void {
     localStorage.removeItem('accessToken');

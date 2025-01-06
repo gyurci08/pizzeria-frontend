@@ -37,6 +37,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
+  
   hidePassword = true;
   isLoading = false;
 
