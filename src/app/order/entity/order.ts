@@ -1,11 +1,11 @@
-import {AutoAssign} from '../../core/decorator/auto-assign.decorator';
-
-@AutoAssign()
 export class Order {
-  id!: number;
-  customerId!: number;
-  customerName!: String;
-  orderDate!: Date;
-  totalAmount!: number;
-  status!: String;
+  constructor(
+    public id: number,
+    public customerId: number,
+    public customerName: String,
+    public orderDate: Date,
+    public totalAmount: number,
+    public status: String
+  ) {
+  }
 }

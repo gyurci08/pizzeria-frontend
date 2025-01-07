@@ -14,6 +14,6 @@ export class LoginGuardService implements CanActivate {
       this.router.navigate(['']); // Redirect to home if already logged in
       return false; // Prevent access to the login routing
     }
-    return true; // Allow access to the login routing
+    return true;    // Allow access to the login routing
   }
 }

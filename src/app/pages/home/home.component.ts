@@ -8,6 +8,7 @@ import {MatButton} from '@angular/material/button';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatList, MatListItem} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
@@ -25,6 +26,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatList,
     MatListItem,
     MatIconModule,
+    RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

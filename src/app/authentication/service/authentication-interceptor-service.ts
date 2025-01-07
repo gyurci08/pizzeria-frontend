@@ -1,7 +1,7 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpRequest } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthenticationService } from './authentication-service';
-import { catchError, switchMap, throwError } from 'rxjs';
+import {HttpErrorResponse, HttpInterceptorFn} from '@angular/common/http';
+import {catchError, switchMap, throwError} from 'rxjs';
+import {AuthenticationService} from './authentication-service';
+import {inject} from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthenticationService);
@@ -10,7 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // Add token to request if available
   if (accessToken) {
     req = req.clone({
-      setHeaders: { Authorization: `Bearer ${accessToken}` }
+      setHeaders: {Authorization: `Bearer ${accessToken}`}
     });
   }
 
@@ -21,7 +21,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           switchMap(() => {
             const newAccessToken = authService.getAccessToken();
             const newReq = req.clone({
-              setHeaders: { Authorization: `Bearer ${newAccessToken}` }
+              setHeaders: {Authorization: `Bearer ${newAccessToken}`}
             });
             return next(newReq);
           })

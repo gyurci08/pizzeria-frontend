@@ -92,16 +92,6 @@ export class AuthenticationService {
     return !!this.getAccessToken();
   }
 
-
-  isAccessTokenExpired(): boolean {
-    const accessToken = this.getAccessToken();
-    if (!accessToken) return true;
-
-    const payload = JSON.parse(atob(accessToken.split('.')[1]));
-    const expirationTime = payload.exp * 1000; // Convert to milliseconds
-    return Date.now() > expirationTime;
-  }
-
   refreshAccessToken(): Observable<AuthResponse> {
     const refreshToken = this.getRefreshToken();
 

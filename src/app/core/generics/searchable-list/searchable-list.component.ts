@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatTable, MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {FormsModule} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
+
+// TODO: Check signals
 
 @Component({
   selector: 'app-searchable-list',
@@ -29,7 +29,7 @@ export class SearchableListComponent {
   @Input() pageSizeOptions: number[] = [5, 10, 25, 100];
 
   @Output() rowClick = new EventEmitter<any>();
-
+  
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

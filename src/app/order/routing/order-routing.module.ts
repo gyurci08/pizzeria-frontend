@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {OrderListComponent} from '../pages/order-list/order-list.component';
 import {OrderNewComponent} from '../pages/order-new/order-new.component';
 
+// TODO: Use standalone component for routing too
 
 const routes: Routes = [
   {

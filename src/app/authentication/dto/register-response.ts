@@ -1,6 +1,3 @@
-export class RegisterResponse {
-  constructor(
-    public id: number
-  ) {
-  };
+export interface RegisterResponse {
+  id: number;
 }

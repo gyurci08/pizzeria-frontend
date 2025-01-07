@@ -1,9 +1,9 @@
-import {AutoAssign} from '../../core/decorator/auto-assign.decorator';
-
-@AutoAssign()
 export class MenuItem {
-  id!: number;
-  name!: String;
-  description!: String;
-  price!: number;
+  constructor(
+    public id: number,
+    public name: string,
+    public description: string,
+    public price: number
+  ) {
+  }
 }

@@ -72,6 +72,8 @@ export class RegisterComponent {
 
   private getErrorMessage(error: HttpErrorResponse): string {
     switch (error.status) {
+      case 409:
+        return 'User or email already exists';
       default:
         return 'An unexpected error occurred. Please try again later.';
     }
